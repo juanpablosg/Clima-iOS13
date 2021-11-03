@@ -23,10 +23,14 @@ struct WeatherManager {
         performRequest(with: URLString)
     }
     
+    func fetchWeatherData(latitude: Double, longitude: Double) {
+        let URLString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
+        performRequest(with: URLString)
+    }
+    
     func performRequest(with URLString: String) {
         // 1. Create a URL
         guard let url = URL(string: URLString) else { return }
-        print(url)
         
         // 2. Create a URL session.
         let session = URLSession.shared
