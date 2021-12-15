@@ -9,15 +9,15 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController {
+final class WeatherViewController: UIViewController {
     
-    @IBOutlet weak var conditionImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet private weak var conditionImageView: UIImageView!
+    @IBOutlet private weak var temperatureLabel: UILabel!
+    @IBOutlet private weak var cityLabel: UILabel!
+    @IBOutlet private weak var searchTextField: UITextField!
     
-    var weatherManager = WeatherManager()
-    let locationManager = CLLocationManager()
+    private var weatherManager = WeatherManager()
+    private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: UITextFieldDelegate {
     
-    @IBAction func searchPressed(_ sender: UIButton) {
+    @IBAction private func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
         print(searchTextField.text!)
     }
@@ -46,7 +46,7 @@ extension WeatherViewController: UITextFieldDelegate {
         return true
     }
     
-    internal func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
             return true
         } else {
@@ -55,7 +55,7 @@ extension WeatherViewController: UITextFieldDelegate {
         }
     }
     
-    internal func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if let cityName = searchTextField.text {
             weatherManager.fetchWeatherData(cityName)
         }
@@ -85,7 +85,7 @@ extension WeatherViewController: WeatherManagerDelegate {
 
 extension WeatherViewController: CLLocationManagerDelegate {
     
-    @IBAction func pressedLocationButton(_ sender: UIButton) {
+    @IBAction private func pressedLocationButton(_ sender: UIButton) {
         locationManager.requestLocation()
     }
     
